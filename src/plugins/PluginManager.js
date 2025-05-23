@@ -16,13 +16,15 @@ class PluginManager {
     
     // Check if message starts with a slash command
     if (!message.startsWith('/')) {
-      // For messages not starting with /, you might want to add natural language processing here later
-      return null; // Return null for now if not a slash command
+      return {
+        type: 'text',
+        content: 'Please use a command starting with / (e.g., /calc, /weather, /define)'
+      };
     }
 
     // Split the message into command and arguments
     const [command, ...args] = message.slice(1).split(' ');
-    const commandName = command.toLowerCase(); // Convert command to lowercase for consistent matching
+    const commandName = command.toLowerCase();
     const plugin = this.plugins.get(commandName);
     console.log('Command:', commandName, 'Args:', args.join(' '));
     console.log('Found plugin:', plugin?.name);
@@ -41,9 +43,8 @@ class PluginManager {
       
       // Return the response in the specified format
       return {
-        type: 'plugin',
         pluginName: plugin.name,
-        pluginData: result // Store the plugin result in pluginData
+        pluginData: result.pluginData
       };
     } catch (error) {
       console.error('Plugin error during execution:', error);

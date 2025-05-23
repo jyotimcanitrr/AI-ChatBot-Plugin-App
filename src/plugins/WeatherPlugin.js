@@ -33,12 +33,14 @@ const WeatherPlugin = {
 
 
      return {
-       type: 'weather',
-       location: data.name,
-       temperature: Math.round(data.main.temp),
-       description: data.weather[0].description,
-       humidity: data.main.humidity,
-       windSpeed: data.wind.speed
+       pluginName: 'weather',
+       pluginData: {
+         location: data.name,
+         temperature: Math.round(data.main.temp),
+         description: data.weather[0].description,
+         humidity: data.main.humidity,
+         windSpeed: data.wind.speed
+       }
      };
    } catch (error) {
      console.error('Weather Plugin - Error:', error);
