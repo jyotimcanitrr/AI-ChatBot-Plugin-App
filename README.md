@@ -41,9 +41,7 @@ This is a simple AI chatbot application built with React that supports a plugin 
 
     ```bash
     npm install
-    # or
-    yarn install
-    ```
+  
 
 ### Environment Variables
 
@@ -67,8 +65,7 @@ To start the development server:
 
 ```bash
 npm start
-# or
-yarn start
+
 ```
 
 The application should open in your browser at `http://localhost:3000/` (or another port if 3000 is busy).
