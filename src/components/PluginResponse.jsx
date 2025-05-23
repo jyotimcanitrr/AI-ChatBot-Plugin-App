@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const PluginResponse = ({ pluginName, pluginData }) => {
-  console.log('PluginResponse received props:', { pluginName, pluginData });
+  console.log('PluginResponse received pluginName:', pluginName);
+  console.log('PluginResponse received pluginData:', pluginData);
 
-  const [responseData, setResponseData] = useState(pluginData);
-
-  useEffect(() => {
-    console.log('PluginData prop changed, updating state:', pluginData);
-    setResponseData(pluginData);
-  }, [pluginData]);
+  // Directly use pluginData for rendering
+  const responseData = pluginData;
 
   if (!responseData) {
-    console.log('No responseData in state');
+    console.log('No responseData in pluginData'); // Adjusted log
     return null;
   }
 
@@ -43,16 +40,43 @@ const PluginResponse = ({ pluginName, pluginData }) => {
 
     case 'define':
       console.log('PluginResponse define data:', responseData);
+      if (!Array.isArray(responseData) || responseData.length === 0) {
+        console.error('PluginResponse define case: Expected responseData to be a non-empty array', responseData);
+        return <div className="text-red-500">Error: Could not display definition.</div>;
+      }
+
       return (
-        <div className="space-y-2 p-4 bg-white rounded shadow">
-          <div className="text-xl font-bold text-blue-700">{responseData.word}</div>
-          {responseData.phonetic && (
-            <div className="text-sm text-gray-500">Phonetic: {responseData.phonetic}</div>
-          )}
-          {responseData.partOfSpeech && (
-            <div className="text-sm text-gray-500">Part of Speech: {responseData.partOfSpeech}</div>
-          )}
-          <div className="text-sm mt-2">{responseData.definition}</div>
+        <div className="space-y-4 p-4 bg-white rounded shadow">
+          {responseData.map((entry, entryIndex) => (
+            <div key={entryIndex} className="space-y-2">
+              <div className="text-xl font-bold text-blue-700">{entry.word}</div>
+              {entry.phonetic && (
+                <div className="text-sm text-gray-500">Phonetic: {entry.phonetic}</div>
+              )}
+
+              {entry.meanings && entry.meanings.length > 0 && (
+                <div className="space-y-2 mt-2">
+                  {entry.meanings.map((meaning, meaningIndex) => (
+                    <div key={meaningIndex} className="space-y-1">
+                      <div className="text-md font-semibold text-gray-700">Part of Speech: {meaning.partOfSpeech}</div>
+                      {meaning.definitions && meaning.definitions.length > 0 && (
+                        <ul className="list-disc list-inside text-sm ml-4 space-y-1">
+                          {meaning.definitions.map((definition, defIndex) => (
+                            <li key={defIndex}>
+                              {definition.definition}
+                              {definition.example && (
+                                <em className="block text-gray-600">Example: {definition.example}</em>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       );
 

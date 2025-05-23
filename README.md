@@ -1,84 +1,102 @@
-<<<<<<< HEAD
-# AI-ChatBot-Plugin-App
-=======
-# AI Chatbot with Plugin System
+# AI Chatbot Plugin App
 
-A modern React-based chatbot interface that supports a plugin system for enhanced functionality. Users can interact with the chatbot using natural language or specific slash commands to access different features.
+## Project Description
+
+This is a simple AI chatbot application built with React that supports a plugin system. It allows users to interact with different functionalities like calculations, weather information, and word definitions through chat commands and natural language input.
 
 ## Features
 
-- 💬 Modern chat interface with message history
-- 🔌 Plugin system for extensible functionality
-- 📱 Responsive design with Tailwind CSS
-- 💾 Persistent chat history using localStorage
-- ⚡ Real-time plugin responses
+-   **Plugin System:** Easily add new functionalities as plugins.
+-   **Calculator Plugin:** Perform basic mathematical calculations.
+-   **Weather Plugin:** Get current weather information for a specified city (requires API key).
+-   **Dictionary Plugin:** Get definitions for words.
+-   **Natural Language Parsing:** Understands commands phrased in natural language (e.g., "What's the weather in London?").
+-   **Responsive UI:** Built with Tailwind CSS for a modern and responsive look.
 
-## Available Plugins
+## Technologies Used
 
-1. **Calculator** (`/calc`)
-   - Usage: `/calc 2 + 2`
-   - Safely evaluates mathematical expressions
+-   React
+-   Tailwind CSS
+-   Node.js / npm
+-   axios / fetch (for API calls)
+-   uuid
 
-2. **Weather** (`/weather`)
-   - Usage: `/weather London`
-   - Fetches current weather data for any city
-   - Requires OpenWeatherMap API key
+## Setup Instructions
 
-3. **Dictionary** (`/define`)
-   - Usage: `/define hello`
-   - Fetches word definitions and pronunciations
-   - Uses Free Dictionary API
+### Prerequisites
 
-## Setup
+-   Node.js and npm (or yarn) installed on your machine.
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd ai-chatbot-plugin-app
-   ```
+### Installation
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+1.  Clone the repository:
 
-3. Create a `.env` file in the root directory and add your OpenWeatherMap API key:
-   ```
-   REACT_APP_OPENWEATHER_API_KEY=your_api_key_here
-   ```
+    ```bash
+    git clone <repository-url> 
+    cd ai-chatbot-plugin-app
+    ```
+    *(Replace `<repository-url>` with the actual URL of your repository, e.g., `https://github.com/your-username/AI-ChatBot-Plugin-App.git`)*
 
-4. Start the development server:
-   ```bash
-   npm start
-   ```
+2.  Install the dependencies:
 
-## Plugin Architecture
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-The plugin system is designed to be extensible and easy to use. Each plugin follows this structure:
+### Environment Variables
 
-```javascript
-{
-  name: string;        // Plugin identifier
-  pattern: RegExp;     // Command pattern to match
-  execute: Function;   // Async function to handle the command
-}
+The Weather Plugin requires an API key from OpenWeatherMap.
+
+1.  Go to [OpenWeatherMap](https://openweathermap.org/) and sign up for a free account.
+2.  Generate an API key.
+3.  Create a file named `.env` in the root directory of your project.
+4.  Add your API key to the `.env` file in the following format:
+
+    ```env
+    REACT_APP_OPENWEATHER_API_KEY=your_api_key_here
+    ```
+    *(Replace `your_api_key_here` with your actual API key).* 
+
+    **Note:** Ensure there are no quotes around your API key in the `.env` file.
+
+## Running the Application
+
+To start the development server:
+
+```bash
+npm start
+# or
+yarn start
 ```
 
-To add a new plugin:
+The application should open in your browser at `http://localhost:3000/` (or another port if 3000 is busy).
 
-1. Create a new plugin file in `src/plugins/`
-2. Implement the plugin interface
-3. Register the plugin in `src/components/Chat.jsx`
+## How to Use the Chatbot
 
-## Contributing
+You can interact with the chatbot using either slash commands or natural language:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### Slash Commands
 
-## License
+-   **Calculator:** `/calc [mathematical expression]`
+    Example: `/calc 10 * (5 + 2)`
+-   **Weather:** `/weather [city name]`
+    Example: `/weather London`
+-   **Dictionary:** `/define [word]`
+    Example: `/define programming`
 
-This project is licensed under the MIT License - see the LICENSE file for details.
->>>>>>> 74350ea (Fix: Corrected plugin response structure and rendering in Chat and PluginManager)
+### Natural Language
+
+-   **Calculator:** Ask a question involving calculation.
+    Example: `What is 25 * 4?`
+-   **Weather:** Ask about the weather in a city.
+    Example: `How is the weather in Tokyo?`
+-   **Dictionary:** Ask for the meaning of a word.
+    Example: `Define recursion.`
+
+## Included Plugins
+
+-   CalculatorPlugin
+-   WeatherPlugin
+-   DictionaryPlugin

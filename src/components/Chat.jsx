@@ -60,6 +60,7 @@ const Chat = () => {
           pluginData: pluginResponse.pluginData,
           timestamp: new Date().toISOString(),
         };
+        console.log('Adding plugin assistant message:', assistantMessage);
         setMessages(prev => [...prev, assistantMessage]);
       } else if (pluginResponse && typeof pluginResponse.content === 'string') {
         const assistantMessage = {
@@ -121,24 +122,27 @@ const Chat = () => {
             </div>
           </div>
         ) : (
-          messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${
-                message.sender === 'user' ? 'justify-end' : 'justify-start'
-              }`}
-            >
+          messages.map((message) => {
+            console.log('Rendering message:', message);
+            return (
               <div
-                className={`max-w-[75%] rounded-lg p-3 ${
-                  message.sender === 'user'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-800'
+                key={message.id}
+                className={`flex ${
+                  message.sender === 'user' ? 'justify-end' : 'justify-start'
                 }`}
               >
-                {renderMessageContent(message)}
+                <div
+                  className={`max-w-[75%] rounded-lg p-3 ${
+                    message.sender === 'user'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-white text-gray-800'
+                  }`}
+                >
+                  {renderMessageContent(message)}
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
         <div ref={messagesEndRef} />
       </div>
